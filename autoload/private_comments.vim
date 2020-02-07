@@ -69,6 +69,8 @@ function! private_comments#RecordComment()
 	call system(l:command)
 	if v:shell_error == 0
 		echo "comment saved"
+	elseif v:shell_error == 9
+		echoerr 'Problem. Either that line is uncommitted, or the server is down.'
 	else
 		echoerr 'Problem communicating with private comments. Is the server running?'
 	endif
@@ -88,6 +90,9 @@ function! private_comments#DeleteComment()
 	call system("pc -f " . l:file_path . ' -l ' . l:line_number . ' -d 2>/dev/null')
 	if v:shell_error == 0
 		echo "comment deleted"
+	elseif v:shell_error == 9
+		echoerr 'Problem. Either that line is uncommitted, or the server is down.'
+	else
 	else
 		echoerr 'Problem communicating with private comments. Is the server running?'
 	endif
