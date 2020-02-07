@@ -9,7 +9,7 @@ function! private_comments#View()
 	let t:pc_parent_win = winnr()
 	let l:file_path = @%
 	" echo 'File path is: ' . file_path
-	let comments = system('pc -f ' . l:file_path)
+	let comments = system('pc -f ' . l:file_path . ' 2>/dev/null')
 	" let comments = system('ls ') " . file_path)
 	if v:shell_error == 0
 		let file_path_hash = system('shasum -a 256 ' . fnameescape(file_path))
@@ -30,7 +30,7 @@ function! private_comments#View()
 		wincmd p
 
 	else
-		echoerr 'Problem communicating with private comments: ' . comments
+		echoerr 'Problem communicating with private comments. Is the server running?'
 	endif
 	1
 endfunction
@@ -65,10 +65,12 @@ function! private_comments#RecordComment()
 	" TODO: figure out how to clear command line of what you input
 
 	" submit it
-	let l:command = 'pc -f '  . l:file_path . ' -l ' . l:line_number . ' -c "' . substitute(l:comment, '"', '\\"', "g") . '"'
+	let l:command = 'pc -f '  . l:file_path . ' -l ' . l:line_number . ' -c "' . substitute(l:comment, '"', '\\"', "g") . '" 2> /dev/null'
 	call system(l:command)
 	if v:shell_error == 0
 		echo "comment saved"
+	else
+		echoerr 'Problem communicating with private comments. Is the server running?'
 	endif
 	" TODO: test if t:pc_comments_win still exists
 	" close it if it does
@@ -83,9 +85,11 @@ function! private_comments#DeleteComment()
 	let l:line_number = line('.')
 	" get the file we are commenting on
 	let l:file_path = @%
-	call system("pc -f " . l:file_path . ' -l ' . l:line_number . ' -d')
+	call system("pc -f " . l:file_path . ' -l ' . l:line_number . ' -d 2>/dev/null')
 	if v:shell_error == 0
 		echo "comment deleted"
+	else
+		echoerr 'Problem communicating with private comments. Is the server running?'
 	endif
 	call private_comments#ClosePCWindow()
 	call private_comments#View()
