@@ -1,16 +1,25 @@
-**vim_private_comments.txt** Record private comments about your code that aren't in your code.
+vim_private_comments.txt Record private comments about your code that aren't in your code.
+
+Enables your vim to communicate with a private comments
+server and record comments about your code that only you can
+see.
 
 ============================================================
-CONTENTS                               *PrivateComments*
+CONTENTS                                    *PrivateComments*
 
-1. Usage............................|PrivateCommentsUsage|
-2. Troubleshooting........|PrivateCommentsTroubleshooting|
+1. Usage...............................|PrivateCommentsUsage|
+2. Configuration...............|PrivateCommentsConfiguration|
+3. Troubleshooting...........|PrivateCommentsTroubleshooting|
+    3.1 Requirements..........|private_comments_requirements|
+    3.2 General Errors......|private_comments_general_errors|
+    3.3 Disappearing Comments.|private_comments_disappearing|
+4. Credits ..........................|PrivateCommentsCredits|
 
 ============================================================
 Section 1: Usage                   *PrivateCommentsUsage*
 
 Assuming you've set up the default abbreviations
-(see |Troubleshooting| if you haven't) you can type:
+(see |Configuration| if you haven't) you can type:
 
 While in your main editing window you can run these
 commands:
@@ -37,14 +46,28 @@ main window will jump to line 35.
 
 :pcc to Close the Private Comments window.
 
-----
+============================================================
+Section 2: Configuration *PrivateCommentsConfiguration*
 
+
+If you haven't done so already, add the following to your
+|:vimrc| to interate with Private Comments
+
+>
+    :cabbr pcv :call private_comments#View()
+    :cabbr pcj :call private_comments#JumpToCommentLine()
+    :cabbr pcr :call private_comments#RecordComment()
+    :cabbr pcd :call private_comments#DeleteComment()
+    :cabbr pcc :call private_comments#ClosePCWindow()
+
+<
 
 
 ============================================================
-Section 2: Troubleshooting *PrivateCommentsTroubleshooting*
+Section 3: Troubleshooting *PrivateCommentsTroubleshooting*
 
-Requirements:
+------------------------------------------------------------
+3.1 Requirements             *private_comments_requirements*
 
 * You'll need the "pc" and "git" executables to be in your
   path. If you're not sure what this means ask a geek
@@ -67,7 +90,8 @@ To check if the server is running run
 That will return the ID of the process if it's running or
 nothing if it isn't.
 
-General Errors
+------------------------------------------------------------
+3.2 General Errors         *private_comments_general_errors*
 
 * You must be using a file within a git repository.
   It must also be a "normal" git repository, with a
@@ -76,6 +100,28 @@ General Errors
   it is new, or has changes since the last commit. Commit
   it, and then try recording the comment.
 
+------------------------------------------------------------
+3.3 Disappearing Comments    *private_comments_disappearing*
+
+My comment disappeared!
+
+Comments are tied to a specific version of a line of code.
+That way they don't become obsolete. If you leave yourself a
+"TODO" on a function telling yourself to rename it, and then
+you rename it, and commit the change, your comment will
+dissapear. It's not gone. If you use git to travel back in
+time and see older versions of a file, you'll see the old
+comments.
+
 Still not working? You can find my contact info at
 https://masukomi.org I'm happy to help, but I'm not good
 with email. ;)
+
+
+============================================================
+Section 4: Credits                   *PrivateCommentsCredits*
+
+Private Comments was created by masukomi and is copyright
+2020 Kay Rhodes (masukomi). My contact info is available at
+https://masukomi.org/ and you can always find the latest
+version of this plugin at https://github.com/masukomi/vim_private_comments/

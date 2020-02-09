@@ -56,7 +56,6 @@ Add the following aliases to your `~/.vimrc` to create aliases for each of the f
 :cabbr pcc :call private_comments#ClosePCWindow()
 ```
 
-
 ### Explanation
 
 * `:pcv` -> (v for View) Views the private comments for the current file.
@@ -66,6 +65,9 @@ Add the following aliases to your `~/.vimrc` to create aliases for each of the f
   * Run from within the private comments listing this will look for the `<number>:` at the start of the comment line and jump to that line in your main editor window. These line numbers are auto-generated so you don't have to put them in your comment.
 * `:pcc` -> (c for Close) closes the private comments window.
   * Switching to the private comments window and running `:q` works fine too. ;)
+
+
+You can find help docs at `:help PrivateComments`
 
 ## License
 [MIT][8]
