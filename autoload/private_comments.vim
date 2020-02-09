@@ -9,7 +9,7 @@ function! private_comments#View()
 	let t:pc_parent_win = winnr()
 	let l:file_path = @%
 	" echo 'File path is: ' . file_path
-	let comments = system('pc -f ' . l:file_path . ' 2>/dev/null')
+	let comments = system('pc -f ' . l:file_path )
 	" let comments = system('ls ') " . file_path)
 	if v:shell_error == 0
 		let file_path_hash = system('shasum -a 256 ' . fnameescape(file_path))
@@ -26,11 +26,12 @@ function! private_comments#View()
 		setlocal buftype=nofile
 		setlocal noswapfile
 		setlocal nomodifiable
+		setlocal nonumber
 		let t:pc_comments_win = winnr()
 		wincmd p
-
 	else
-		echoerr 'Problem communicating with private comments. Is the server running?'
+		echoerr 'Problem communicating with private comments. Is the server running? ' . comments
+
 	endif
 	1
 endfunction
