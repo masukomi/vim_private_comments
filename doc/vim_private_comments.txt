@@ -1,0 +1,81 @@
+**vim_private_comments.txt** Record private comments about your code that aren't in your code.
+
+============================================================
+CONTENTS                               *PrivateComments*
+
+1. Usage............................|PrivateCommentsUsage|
+2. Troubleshooting........|PrivateCommentsTroubleshooting|
+
+============================================================
+Section 1: Usage                   *PrivateCommentsUsage*
+
+Assuming you've set up the default abbreviations
+(see |Troubleshooting| if you haven't) you can type:
+
+While in your main editing window you can run these
+commands:
+
+:pcv to View any comments associated with lines in the
+current file.
+
+:pcr to Record a new comment associated with the line your
+cursor is currently on.
+
+:pcd to Delete the comment associated with the line your
+cursor is currentyl on.
+
+:pcc to Close the Private Comments window.
+
+To change a comment just record a new one on the same line.
+
+In the Private Comments window you can run these:
+
+:pcj to jump to the line in the main window that corresponds
+with the comment your cursor is currently on. For example,
+if the comment is "35:rename me" and you type `:pcj` your
+main window will jump to line 35.
+
+:pcc to Close the Private Comments window.
+
+----
+
+
+
+============================================================
+Section 2: Troubleshooting *PrivateCommentsTroubleshooting*
+
+Requirements:
+
+* You'll need the "pc" and "git" executables to be in your
+  path. If you're not sure what this means ask a geek
+  familar with unix / linux.
+* You'll need to have started the private comments server.
+  If you're using bash or zsh a good way to start it is
+  to run
+
+    private_comments && disown
+
+  and then close the window. If you need to kill it you can
+do so with
+
+    pkill private_comments
+
+To check if the server is running run
+
+    pgrep private_comments
+
+That will return the ID of the process if it's running or
+nothing if it isn't.
+
+General Errors
+
+* You must be using a file within a git repository.
+  It must also be a "normal" git repository, with a
+  hidden ".git" directory at the root of it.
+* The line you're trying to comment on must be committed. If
+  it is new, or has changes since the last commit. Commit
+  it, and then try recording the comment.
+
+Still not working? You can find my contact info at
+https://masukomi.org I'm happy to help, but I'm not good
+with email. ;)
