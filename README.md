@@ -20,8 +20,10 @@ Note: Private Comments can only record comments about _committed_ lines. So, if 
 ## Requirements
 
 * The [Private Comments](https://github.com/masukomi/private_comments/) server must be running locally
-* The `pc` client must be in your `$PATH`[^1]
-* The [git](https://git-scm.com/) command line client must be installed and also in your `$PATH`
+* The `pc` client (part of private comments) must be in your `$PATH`[^1]
+* The [git](https://git-scm.com/) command line client must be installed and also in your `$PATH`. 
+
+If you've installed private comments and git with a package manager like Homebrew, they're already in your path. If you've done things manually here's [how to add directories to your path in linux](https://www.techrepublic.com/article/how-to-add-directories-to-your-path-in-linux/).
 
 ## Installation
 
